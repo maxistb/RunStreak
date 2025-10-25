@@ -6,21 +6,78 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		7A9B8F702E9D6A4600B2A282 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9B8F6F2E9D6A4600B2A282 /* WidgetKit.framework */; };
+		7A9B8F722E9D6A4600B2A282 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9B8F712E9D6A4600B2A282 /* SwiftUI.framework */; };
+		7A9B8F7F2E9D6A4800B2A282 /* RunStreakWidgetExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7A9B8F6D2E9D6A4600B2A282 /* RunStreakWidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7A9B8F7D2E9D6A4800B2A282 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7AB118C12E95075800CF8EE1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A9B8F6C2E9D6A4600B2A282;
+			remoteInfo = RunStreakWidgetExtensionExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7A9B8F842E9D6A4800B2A282 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				7A9B8F7F2E9D6A4800B2A282 /* RunStreakWidgetExtensionExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		7A9B8F6D2E9D6A4600B2A282 /* RunStreakWidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RunStreakWidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A9B8F6F2E9D6A4600B2A282 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		7A9B8F712E9D6A4600B2A282 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		7A9B8F892E9D6C5C00B2A282 /* RunStreakWidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunStreakWidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
 		7AB118C92E95075800CF8EE1 /* RunStreak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunStreak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		7AB118D62E95075900CF8EE1 /* Exceptions for "RunStreak" folder in "RunStreak" target */ = {
+		7A9B8F832E9D6A4800B2A282 /* Exceptions for "RunStreakWidgetExtension" folder in "RunStreakWidgetExtensionExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
+			);
+			target = 7A9B8F6C2E9D6A4600B2A282 /* RunStreakWidgetExtensionExtension */;
+		};
+		7A9B8F882E9D6A7F00B2A282 /* Exceptions for "RunStreakWidgetExtension" folder in "RunStreak" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				RunStreakWidgetData.swift,
+			);
+			target = 7AB118C82E95075800CF8EE1 /* RunStreak */;
+		};
+		7AB118D62E95075900CF8EE1 /* Exceptions for "RunStreak" folder in "RunStreak" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Configuration/Info.plist,
 			);
 			target = 7AB118C82E95075800CF8EE1 /* RunStreak */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		7A9B8F732E9D6A4600B2A282 /* RunStreakWidgetExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				7A9B8F882E9D6A7F00B2A282 /* Exceptions for "RunStreakWidgetExtension" folder in "RunStreak" target */,
+				7A9B8F832E9D6A4800B2A282 /* Exceptions for "RunStreakWidgetExtension" folder in "RunStreakWidgetExtensionExtension" target */,
+			);
+			path = RunStreakWidgetExtension;
+			sourceTree = "<group>";
+		};
 		7AB118CB2E95075800CF8EE1 /* RunStreak */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -32,6 +89,15 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7A9B8F6A2E9D6A4600B2A282 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A9B8F722E9D6A4600B2A282 /* SwiftUI.framework in Frameworks */,
+				7A9B8F702E9D6A4600B2A282 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AB118C62E95075800CF8EE1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -42,10 +108,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A9B8F6E2E9D6A4600B2A282 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7A9B8F6F2E9D6A4600B2A282 /* WidgetKit.framework */,
+				7A9B8F712E9D6A4600B2A282 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7AB118C02E95075800CF8EE1 = {
 			isa = PBXGroup;
 			children = (
+				7A9B8F892E9D6C5C00B2A282 /* RunStreakWidgetExtensionExtension.entitlements */,
 				7AB118CB2E95075800CF8EE1 /* RunStreak */,
+				7A9B8F732E9D6A4600B2A282 /* RunStreakWidgetExtension */,
+				7A9B8F6E2E9D6A4600B2A282 /* Frameworks */,
 				7AB118CA2E95075800CF8EE1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				7AB118C92E95075800CF8EE1 /* RunStreak.app */,
+				7A9B8F6D2E9D6A4600B2A282 /* RunStreakWidgetExtensionExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,6 +140,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7A9B8F6C2E9D6A4600B2A282 /* RunStreakWidgetExtensionExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A9B8F802E9D6A4800B2A282 /* Build configuration list for PBXNativeTarget "RunStreakWidgetExtensionExtension" */;
+			buildPhases = (
+				7A9B8F692E9D6A4600B2A282 /* Sources */,
+				7A9B8F6A2E9D6A4600B2A282 /* Frameworks */,
+				7A9B8F6B2E9D6A4600B2A282 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				7A9B8F732E9D6A4600B2A282 /* RunStreakWidgetExtension */,
+			);
+			name = RunStreakWidgetExtensionExtension;
+			packageProductDependencies = (
+			);
+			productName = RunStreakWidgetExtensionExtension;
+			productReference = 7A9B8F6D2E9D6A4600B2A282 /* RunStreakWidgetExtensionExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		7AB118C82E95075800CF8EE1 /* RunStreak */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AB118D72E95075900CF8EE1 /* Build configuration list for PBXNativeTarget "RunStreak" */;
@@ -68,10 +169,12 @@
 				7AB118C52E95075800CF8EE1 /* Sources */,
 				7AB118C62E95075800CF8EE1 /* Frameworks */,
 				7AB118C72E95075800CF8EE1 /* Resources */,
+				7A9B8F842E9D6A4800B2A282 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7A9B8F7E2E9D6A4800B2A282 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				7AB118CB2E95075800CF8EE1 /* RunStreak */,
@@ -93,6 +196,9 @@
 				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
+					7A9B8F6C2E9D6A4600B2A282 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
 					7AB118C82E95075800CF8EE1 = {
 						CreatedOnToolsVersion = 26.0.1;
 					};
@@ -113,11 +219,19 @@
 			projectRoot = "";
 			targets = (
 				7AB118C82E95075800CF8EE1 /* RunStreak */,
+				7A9B8F6C2E9D6A4600B2A282 /* RunStreakWidgetExtensionExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7A9B8F6B2E9D6A4600B2A282 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AB118C72E95075800CF8EE1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -128,6 +242,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7A9B8F692E9D6A4600B2A282 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AB118C52E95075800CF8EE1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -137,30 +258,105 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7A9B8F7E2E9D6A4800B2A282 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A9B8F6C2E9D6A4600B2A282 /* RunStreakWidgetExtensionExtension */;
+			targetProxy = 7A9B8F7D2E9D6A4800B2A282 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		7A9B8F812E9D6A4800B2A282 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = RunStreakWidgetExtensionExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D6BN8JUT3H;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RunStreakWidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RunStreakWidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.runstreak.app.RunStreakWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7A9B8F822E9D6A4800B2A282 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = RunStreakWidgetExtensionExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D6BN8JUT3H;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RunStreakWidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RunStreakWidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.runstreak.app.RunStreakWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		7AB118D82E95075900CF8EE1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = RunStreak/RunStreak.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RunStreak/Configuration/RunStreak.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 888YJHVU5N;
+				DEVELOPMENT_TEAM = D6BN8JUT3H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RunStreak/Info.plist;
+				INFOPLIST_FILE = RunStreak/Configuration/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RunStreak;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We need to have Access.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need to have Access.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.runstreak.app.RunStreak;
+				PRODUCT_BUNDLE_IDENTIFIER = com.runstreak.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -177,24 +373,29 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = RunStreak/RunStreak.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RunStreak/Configuration/RunStreak.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 888YJHVU5N;
+				DEVELOPMENT_TEAM = D6BN8JUT3H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RunStreak/Info.plist;
+				INFOPLIST_FILE = RunStreak/Configuration/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RunStreak;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We need to have Access.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need to have Access.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.runstreak.app.RunStreak;
+				PRODUCT_BUNDLE_IDENTIFIER = com.runstreak.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -330,6 +531,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7A9B8F802E9D6A4800B2A282 /* Build configuration list for PBXNativeTarget "RunStreakWidgetExtensionExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A9B8F812E9D6A4800B2A282 /* Debug */,
+				7A9B8F822E9D6A4800B2A282 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7AB118C42E95075800CF8EE1 /* Build configuration list for PBXProject "RunStreak" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
