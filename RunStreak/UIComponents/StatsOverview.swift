@@ -23,44 +23,46 @@ struct StatsOverview: View {
   }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 16) {
-      Text("This Week’s Summary")
-        .font(.system(size: 18, weight: .bold))
-        .foregroundColor(AppColor.textPrimary)
+    HStack(spacing: 24) {
+      Spacer()
 
-      HStack(spacing: 12) {
-        StatSoft(icon: "figure.run", label: "Distance", value: "\(String(format: "%.1f km", totalDistance))", color: AppColor.accentBlue)
-        StatSoft(icon: "timer", label: "Avg Pace", value: "\(avgPace)/km", color: AppColor.accentPeach)
+      VStack(spacing: 8) {
+        Text("🏃‍♂️")
+          .font(.system(size: 32))
+        Text("Distance")
+          .font(.system(size: 16, weight: .bold, design: .rounded))
+          .foregroundColor(.white)
+        Text("\(String(format: "%.1f km", totalDistance))")
+          .font(.system(size: 18, weight: .bold, design: .rounded))
+          .foregroundColor(.white)
       }
+
+      Spacer()
+
+      VStack(spacing: 8) {
+        Text("⏱")
+          .font(.system(size: 32))
+        Text("Pace")
+          .font(.system(size: 16, weight: .bold, design: .rounded))
+          .foregroundColor(.white)
+        Text("\(avgPace) min/km")
+          .font(.system(size: 18, weight: .bold, design: .rounded))
+          .foregroundColor(.white)
+      }
+
+      Spacer()
     }
     .padding()
-    .background(AppColor.card)
-    .cornerRadius(24)
-    .shadow(color: .black.opacity(0.05), radius: 10, y: 6)
-    .padding(.horizontal)
-  }
-}
-
-struct StatSoft: View {
-  let icon: String
-  let label: String
-  let value: String
-  let color: Color
-
-  var body: some View {
-    VStack(alignment: .leading, spacing: 6) {
-      Image(systemName: icon)
-        .font(.system(size: 18))
-        .padding(10)
-        .background(color.opacity(0.3))
-        .clipShape(Circle())
-      Text(label)
-        .font(.system(size: 13, weight: .medium))
-        .foregroundColor(AppColor.textSecondary)
-      Text(value)
-        .font(.system(size: 16, weight: .bold))
-        .foregroundColor(AppColor.textPrimary)
+    .background {
+      Image(.backgroundHorizontal)
+        .resizable()
+        .scaledToFill()
+        .overlay {
+          Color.black.opacity(0.4)
+        }
     }
-    .frame(maxWidth: .infinity, alignment: .leading)
+    .clipShape(
+      RoundedRectangle(cornerRadius: 20)
+    )
   }
 }

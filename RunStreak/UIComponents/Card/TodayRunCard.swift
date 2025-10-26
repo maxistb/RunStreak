@@ -25,6 +25,5 @@ struct TodayRunCard: View {
     .background(AppColor.accentMint)
     .cornerRadius(20)
     .shadow(color: AppColor.accentMint.opacity(0.5), radius: 10, y: 4)
-    .padding(.horizontal)
   }
 }

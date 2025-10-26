@@ -24,6 +24,6 @@ struct InsightsCard: View {
     .background(AppColor.accentBlue)
     .cornerRadius(20)
     .shadow(color: AppColor.accentBlue.opacity(0.4), radius: 10, y: 6)
-    .padding(.horizontal)
+    .padding(.horizontal, 4)
   }
 }

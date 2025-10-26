@@ -31,13 +31,14 @@ struct AllRunsScreen: View {
 
       List {
         ForEach(groupedRuns, id: \.key) { month, runs in
-          Section(header: SectionHeader(title: month)) {
-            ForEach(runs.sorted(by: { $0.date > $1.date }), id: \.uuid) { run in
-              RunListRow(run: run)
-                .listRowBackground(Color.clear)
-                .listRowSeparator(.hidden)
-            }
-          }
+//          Section(header: SectionHeader(title: month)) {
+//            ForEach(runs.sorted(by: { $0.date > $1.date }), id: \.uuid) { run in
+//              RunListRow(run: run)
+//                .listRowBackground(Color.clear)
+//                .listRowSeparator(.hidden)
+//            }
+//          }
+          Text("")
         }
       }
       .scrollContentBackground(.hidden)

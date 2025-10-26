@@ -17,14 +17,27 @@ struct HomeScreen: View {
       ScrollView(showsIndicators: false) {
         VStack(alignment: .leading, spacing: 24) {
           header
-          StreakBlock(streakCount: calculateStreak(from: runs))
+            .padding(.horizontal, 16)
+
           statisticBadges
+
+          StreakBlock(streakCount: calculateStreak(from: runs))
+            .padding(.horizontal, 16)
+
           todayRunBadge
+            .padding(.horizontal, 16)
+
+          DonationCards()
+
           StatsOverview(runs: runs)
-          InsightsCard()
+            .padding(.horizontal, 16)
+
           allRunButton
+            .padding(.horizontal, 16)
         }
         .padding(.vertical, 24)
+        .background(AppColor.background)
+        .cornerRadius(20)
       }
       .background(AppColor.background.ignoresSafeArea())
       .navigationDestination(isPresented: $showAllRuns) {
@@ -47,7 +60,6 @@ struct HomeScreen: View {
         .font(.system(size: 16, weight: .medium, design: .rounded))
         .foregroundColor(AppColor.textSecondary)
     }
-    .padding(.horizontal)
   }
 
   @ViewBuilder
@@ -60,7 +72,22 @@ struct HomeScreen: View {
     }()
 
     if todayDistanceKm > 0 {
-      TodayRunCard(distanceKm: todayDistanceKm)
+      HStack {
+        Text("Today’s Run Complete ✅")
+          .font(.system(size: 18, weight: .bold, design: .rounded))
+          .foregroundColor(.black)
+        Spacer()
+        Text("\(String(format: "%.1f km", todayDistanceKm))")
+          .font(.system(size: 18, weight: .bold, design: .rounded))
+          .foregroundColor(.black)
+      }
+      .padding()
+      .background(AppColor.accentMint)
+      .overlay(
+        RoundedRectangle(cornerRadius: 20)
+          .stroke(Color.black, lineWidth: 2)
+      )
+      .cornerRadius(20)
     }
   }
 
@@ -75,12 +102,13 @@ struct HomeScreen: View {
         ) {
           NavigationLink(destination: Text("")) { EmptyView() }
         }
+        .padding(.leading, 16)
 
         InsightPreviewButton(
           title: "Heart Rate",
           value: "\(Int(avgHeartRateLast7Days)) bpm",
           icon: "heart.fill",
-          color: AppColor.accentPeach
+          color: AppColor.accentPink
         ) {
           NavigationLink(destination: Text("")) { EmptyView() }
         }
@@ -93,8 +121,8 @@ struct HomeScreen: View {
         ) {
           NavigationLink(destination: Text("")) { EmptyView() }
         }
+        .padding(.trailing, 16)
       }
-      .padding(.horizontal)
     }
   }
 
@@ -103,15 +131,19 @@ struct HomeScreen: View {
       showAllRuns = true
     } label: {
       Text("View All Runs")
-        .font(.system(size: 17, weight: .semibold))
-        .foregroundColor(.white)
+        .font(.system(size: 17, weight: .bold, design: .rounded))
+        .foregroundColor(.black)
         .frame(maxWidth: .infinity)
         .padding()
         .background(AppColor.accentLilac)
-        .cornerRadius(16)
-        .shadow(color: AppColor.accentLilac.opacity(0.5), radius: 10, y: 4)
+        .overlay(
+          RoundedRectangle(cornerRadius: 20)
+            .stroke(Color.black, lineWidth: 2)
+        )
+        .cornerRadius(20)
     }
-    .padding(.horizontal)
+    .buttonStyle(PlainButtonStyle())
+    .pressedEffect()
   }
 
   private func calculateStreak(from runs: [RunDay]) -> Int {

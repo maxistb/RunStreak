@@ -41,7 +41,7 @@ struct DistanceTrendChart: View {
           x: .value("Date", day.date),
           y: .value("km", day.km)
         )
-        .foregroundStyle(AppColor.primary)
+        .foregroundStyle(AppColor.background)
         .lineStyle(.init(lineWidth: 3, lineCap: .round))
       }
       .chartXAxis {
@@ -57,9 +57,9 @@ struct DistanceTrendChart: View {
       .frame(height: 140)
     }
     .padding()
-    .background(AppColor.surface)
+    .background(AppColor.background)
     .cornerRadius(10)
     .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white, lineWidth: 2))
-    .shadow(color: AppColor.secondary.opacity(0.6), radius: 0, x: 5, y: 5)
+    .shadow(color: AppColor.background.opacity(0.6), radius: 0, x: 5, y: 5)
   }
 }

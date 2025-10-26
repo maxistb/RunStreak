@@ -47,7 +47,7 @@ struct ChartCard<Content: View>: View {
       RoundedRectangle(cornerRadius: CornerRadius.large)
         .stroke(
           LinearGradient(
-            colors: [AppColor.primary.opacity(0.3), .clear],
+            colors: [AppColor.background.opacity(0.3), .clear],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
           ),

@@ -39,7 +39,7 @@ struct HeartRateTrendChart: View {
           )
           .foregroundStyle(
             LinearGradient(
-              colors: [AppColor.secondary.opacity(0.3), .clear],
+              colors: [AppColor.background.opacity(0.3), .clear],
               startPoint: .top,
               endPoint: .bottom
             )
@@ -50,7 +50,7 @@ struct HeartRateTrendChart: View {
             y: .value("BPM", day.bpm)
           )
           .lineStyle(.init(lineWidth: 2, lineCap: .round))
-          .foregroundStyle(AppColor.secondary)
+          .foregroundStyle(AppColor.background)
           .interpolationMethod(.catmullRom)
         }
         .chartXAxis {

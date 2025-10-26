@@ -7,32 +7,39 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct StreakBlock: View {
   let streakCount: Int
 
   var body: some View {
-    HStack(spacing: 16) {
-      Image(systemName: "flame.fill")
-        .foregroundColor(.orange)
-        .font(.system(size: 40))
-        .padding(16)
-        .background(AppColor.accentPeach)
-        .clipShape(Circle())
+    Button {} label: {
+      VStack(spacing: 20) {
+        Image(.starPink)
+          .resizable()
+          .scaledToFit()
+          .frame(height: 120)
 
-      VStack(alignment: .leading, spacing: 4) {
-        Text("\(streakCount) Day\(streakCount > 1 ? "s" : "")")
-          .font(.system(size: 28, weight: .bold, design: .rounded))
-          .foregroundColor(AppColor.textPrimary)
-        Text("You’re on a roll! Keep moving 🌟")
-          .font(.system(size: 15, weight: .medium))
-          .foregroundColor(AppColor.textSecondary)
+        VStack(spacing: 6) {
+          Text("\(streakCount) DAY\(streakCount == 1 ? "" : "S")")
+            .font(.system(size: 28, weight: .heavy, design: .rounded))
+            .foregroundColor(.black)
+
+          Text("You’re on a roll! Keep moving 🌟")
+            .font(.system(size: 15, weight: .medium))
+            .foregroundColor(.black.opacity(0.7))
+        }
       }
-      Spacer()
+      .frame(maxWidth: .infinity)
+      .padding(.vertical, 20)
     }
-    .padding()
-    .background(AppColor.card)
-    .cornerRadius(24)
-    .shadow(color: .black.opacity(0.05), radius: 10, y: 6)
-    .padding(.horizontal)
+    .buttonStyle(
+      NeobrutalistButtonStyle(
+        cornerRadius: 20,
+        shadowOffset: 4,
+        borderColor: .black,
+        backgroundColor: AppColor.accentPurple
+      )
+    )
   }
 }

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct InsightPreviewButton<Destination: View>: View {
+  @State private var isPressed = false
+
   let title: String
   let value: String
   let icon: String
@@ -15,30 +17,77 @@ struct InsightPreviewButton<Destination: View>: View {
   let destination: () -> Destination
 
   var body: some View {
-    NavigationLink(destination: destination()) {
-      VStack(alignment: .leading, spacing: 8) {
+    Button {
+      isPressed.toggle()
+    } label: {
+      VStack(alignment: .leading, spacing: 10) {
         Image(systemName: icon)
-          .font(.system(size: 20))
+          .font(.system(size: 20, weight: .bold))
+          .foregroundColor(.black)
           .padding(10)
-          .background(color)
+          .background(AppColor.background)
           .clipShape(Circle())
+          .overlay(
+            Circle()
+              .stroke(Color.black, lineWidth: 2)
+          )
 
-        Text(title)
-          .font(.system(size: 14, weight: .medium))
-          .foregroundColor(AppColor.textSecondary)
+        Text(title.uppercased())
+          .font(.system(size: 13, weight: .bold))
+          .foregroundColor(.black.opacity(0.8))
+          .lineLimit(1)
 
         Text(value)
-          .font(.system(size: 17, weight: .bold, design: .rounded))
-          .foregroundColor(AppColor.textPrimary)
-
-        Spacer()
+          .font(.system(size: 18, weight: .heavy, design: .rounded))
+          .foregroundColor(.black)
+          .lineLimit(1)
       }
       .padding()
-      .frame(width: 150, height: 120, alignment: .topLeading)
-      .background(AppColor.card)
-      .cornerRadius(20)
-      .shadow(color: color.opacity(0.3), radius: 6, y: 4)
+      .frame(width: 150, height: 120, alignment: .leading)
+      .overlay(alignment: .trailing) {
+        Image(systemName: "chevron.right")
+          .foregroundStyle(.black)
+          .padding(.trailing, 8)
+      }
     }
-    .buttonStyle(PlainButtonStyle())
+    .buttonStyle(
+      NeobrutalistButtonStyle(
+        cornerRadius: 20,
+        shadowOffset: 3,
+        borderColor: .black,
+        backgroundColor: color
+      )
+    )
+    .padding(.vertical, 4)
+  }
+}
+
+struct NeobrutalistButtonStyle: ButtonStyle {
+  var cornerRadius: CGFloat = 16
+  var shadowOffset: CGFloat = 5
+  var borderColor: Color = .black
+  var backgroundColor: Color = AppColor.background
+
+  func makeBody(configuration: Configuration) -> some View {
+    configuration.label
+      .background(
+        RoundedRectangle(cornerRadius: cornerRadius)
+          .fill(backgroundColor)
+          .shadow(
+            color: borderColor,
+            radius: 0,
+            x: configuration.isPressed ? 0 : shadowOffset,
+            y: configuration.isPressed ? 0 : shadowOffset
+          )
+      )
+      .overlay(
+        RoundedRectangle(cornerRadius: cornerRadius)
+          .stroke(borderColor, lineWidth: 2)
+      )
+      .offset(
+        x: configuration.isPressed ? shadowOffset : 0,
+        y: configuration.isPressed ? shadowOffset : 0
+      )
+      .animation(.easeOut(duration: 0.1), value: configuration.isPressed)
   }
 }

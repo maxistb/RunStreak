@@ -38,7 +38,7 @@ struct Vo2MaxTrendChart: View {
           )
           .foregroundStyle(
             LinearGradient(
-              colors: [AppColor.primary.opacity(0.3), .clear],
+              colors: [AppColor.background.opacity(0.3), .clear],
               startPoint: .top,
               endPoint: .bottom
             )
@@ -49,7 +49,7 @@ struct Vo2MaxTrendChart: View {
             y: .value("VO₂ Max", day.vo2)
           )
           .lineStyle(.init(lineWidth: 2, lineCap: .round))
-          .foregroundStyle(AppColor.primary)
+          .foregroundStyle(AppColor.background)
           .interpolationMethod(.catmullRom)
         }
         .chartXAxis {
