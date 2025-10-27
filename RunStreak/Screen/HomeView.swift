@@ -9,8 +9,30 @@ import SwiftData
 import SwiftUI
 
 struct HomeScreen: View {
-  @State private var showAllRuns = false
+  enum Destination: Hashable {
+    case vo2Max
+    case distance
+    case heartRate
+    case allRuns
+  }
+
   @State private var runs: [RunDay] = []
+  @State private var destination: Destination?
+
+  private var groupedDistance: [ChartDistanceModel] {
+    groupRunsByDay(runs, dateKey: \.date, valueKey: { $0.distanceInMeters })
+      .map { .init(date: $0.date, value: $0.average / 1000) }
+  }
+
+  private var groupedHeartRate: [ChartHeartRateModel] {
+    groupRunsByDay(runs, dateKey: \.date, valueKey: { $0.avgHeartRate })
+      .map { .init(date: $0.date, value: $0.average) }
+  }
+
+  private var groupedVo2Max: [ChartVo2MaxModel] {
+    groupRunsByDay(runs, dateKey: \.date, valueKey: { $0.vo2Max })
+      .map { .init(date: $0.date, value: $0.average) }
+  }
 
   var body: some View {
     NavigationStack {
@@ -21,18 +43,18 @@ struct HomeScreen: View {
 
           statisticBadges
 
-          StreakBlock(streakCount: calculateStreak(from: runs))
+          StreakCard(streakCount: calculateStreak(from: runs))
             .padding(.horizontal, 16)
 
           todayRunBadge
             .padding(.horizontal, 16)
 
+          allRunButton
+            .padding(.horizontal, 16)
+
           DonationCards()
 
           StatsOverview(runs: runs)
-            .padding(.horizontal, 16)
-
-          allRunButton
             .padding(.horizontal, 16)
         }
         .padding(.vertical, 24)
@@ -40,8 +62,38 @@ struct HomeScreen: View {
         .cornerRadius(20)
       }
       .background(AppColor.background.ignoresSafeArea())
-      .navigationDestination(isPresented: $showAllRuns) {
-        AllRunsScreen(runs: runs)
+      .navigationDestination(item: $destination) { destination in
+        switch destination {
+          case .vo2Max:
+            MetricDetailView<ChartVo2MaxModel>(
+              title: "VO₂max",
+              unit: "ml/kg/min",
+              accentColor: AppColor.accentMint,
+              footerText: "Improving VO₂max boosts endurance and stamina 💪",
+              samples: groupedVo2Max
+            )
+
+          case .distance:
+            MetricDetailView<ChartDistanceModel>(
+              title: "Distance",
+              unit: "km",
+              accentColor: AppColor.accentBlue,
+              footerText: "Keep going — consistency builds endurance 🏃‍♂️💪",
+              samples: groupedDistance
+            )
+
+          case .heartRate:
+            MetricDetailView<ChartHeartRateModel>(
+              title: "Heart Rate",
+              unit: "bpm",
+              accentColor: AppColor.accentPink,
+              footerText: "Lower resting heart rate = better cardiovascular health ❤️",
+              samples: groupedHeartRate
+            )
+
+          case .allRuns:
+            AllRunsScreen(runs: runs)
+        }
       }
       .task {
         try? await HealthKitManager.shared.requestAuthorization()
@@ -98,9 +150,10 @@ struct HomeScreen: View {
           title: "Distance",
           value: "\(String(format: "%.1f km", totalDistanceLast7Days))",
           icon: "figure.run",
-          color: AppColor.accentBlue
+          color: AppColor.accentBlue,
+          hasTrailingArrow: true
         ) {
-          NavigationLink(destination: Text("")) { EmptyView() }
+          destination = .distance
         }
         .padding(.leading, 16)
 
@@ -108,18 +161,20 @@ struct HomeScreen: View {
           title: "Heart Rate",
           value: "\(Int(avgHeartRateLast7Days)) bpm",
           icon: "heart.fill",
-          color: AppColor.accentPink
+          color: AppColor.accentPink,
+          hasTrailingArrow: true
         ) {
-          NavigationLink(destination: Text("")) { EmptyView() }
+          destination = .heartRate
         }
 
         InsightPreviewButton(
           title: "VO₂ Max",
           value: "\(String(format: "%.1f", avgVo2MaxLast7Days)) ml/kg/min",
           icon: "lungs.fill",
-          color: AppColor.accentMint
+          color: AppColor.accentMint,
+          hasTrailingArrow: true
         ) {
-          NavigationLink(destination: Text("")) { EmptyView() }
+          destination = .vo2Max
         }
         .padding(.trailing, 16)
       }
@@ -128,7 +183,7 @@ struct HomeScreen: View {
 
   private var allRunButton: some View {
     Button {
-      showAllRuns = true
+      destination = .allRuns
     } label: {
       Text("View All Runs")
         .font(.system(size: 17, weight: .bold, design: .rounded))
@@ -180,5 +235,28 @@ struct HomeScreen: View {
     let recent = runs.filter { $0.date >= oneWeekAgo && $0.vo2Max != nil }
     guard !recent.isEmpty else { return 0 }
     return recent.reduce(0) { $0 + ($1.vo2Max ?? 0) } / Double(recent.count)
+  }
+
+  /// Groups runs by day and averages a numeric metric value (e.g., distance, heart rate, vo2max)
+  func groupRunsByDay<T>(
+    _ runs: [T],
+    dateKey: (T) -> Date,
+    valueKey: (T) -> Double?
+  ) -> [(date: Date, average: Double)] {
+    let calendar = Calendar.current
+
+    let grouped = Dictionary(grouping: runs, by: { calendar.startOfDay(for: dateKey($0)) })
+
+    return grouped.compactMap { date, items in
+      let validValues = items.compactMap(valueKey).filter { $0.isFinite && $0 > 0 }
+
+      guard !validValues.isEmpty else { return nil }
+
+      let avg = validValues.reduce(0, +) / Double(validValues.count)
+      guard avg.isFinite else { return nil }
+
+      return (date, avg)
+    }
+    .sorted { $0.date < $1.date }
   }
 }

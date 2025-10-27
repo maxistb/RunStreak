@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-import SwiftUI
-
-struct StreakBlock: View {
+struct StreakCard: View {
   let streakCount: Int
 
   var body: some View {

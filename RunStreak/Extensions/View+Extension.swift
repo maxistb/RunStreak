@@ -11,6 +11,10 @@ extension View {
   func pressedEffect() -> some View {
     modifier(PressedEffect())
   }
+
+  func apply<V: View>(@ViewBuilder _ block: (Self) -> V) -> V {
+    block(self)
+  }
 }
 
 struct PressedEffect: ViewModifier {

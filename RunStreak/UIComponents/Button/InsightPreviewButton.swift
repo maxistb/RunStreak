@@ -7,20 +7,19 @@
 
 import SwiftUI
 
-struct InsightPreviewButton<Destination: View>: View {
-  @State private var isPressed = false
-
+struct InsightPreviewButton: View {
   let title: String
   let value: String
   let icon: String
   let color: Color
-  let destination: () -> Destination
+  let hasTrailingArrow: Bool
+  let onClick: () -> Void
 
   var body: some View {
     Button {
-      isPressed.toggle()
+      onClick()
     } label: {
-      VStack(alignment: .leading, spacing: 10) {
+      VStack(alignment: hasTrailingArrow ? .leading : .center, spacing: 10) {
         Image(systemName: icon)
           .font(.system(size: 20, weight: .bold))
           .foregroundColor(.black)
@@ -43,11 +42,19 @@ struct InsightPreviewButton<Destination: View>: View {
           .lineLimit(1)
       }
       .padding()
-      .frame(width: 150, height: 120, alignment: .leading)
-      .overlay(alignment: .trailing) {
-        Image(systemName: "chevron.right")
-          .foregroundStyle(.black)
-          .padding(.trailing, 8)
+      .apply {
+        if hasTrailingArrow {
+          $0
+            .frame(width: 150, height: 120, alignment: .leading)
+            .overlay(alignment: .trailing) {
+              Image(systemName: "chevron.right")
+                .foregroundStyle(.black)
+                .padding(.trailing, 8)
+            }
+        } else {
+          $0
+            .frame(maxWidth: .infinity)
+        }
       }
     }
     .buttonStyle(

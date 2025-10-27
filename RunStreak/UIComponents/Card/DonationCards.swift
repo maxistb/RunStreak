@@ -10,10 +10,17 @@ import SwiftUI
 struct DonationCards: View {
   var body: some View {
     VStack(spacing: 12) {
-      Text("Support RunStreak 💛")
-        .font(.system(size: 22, weight: .bold, design: .rounded))
-        .foregroundColor(.black)
-        .multilineTextAlignment(.center)
+      HStack {
+        Text("Support RunStreak")
+          .font(.system(size: 22, weight: .bold, design: .rounded))
+          .foregroundColor(.black)
+          .multilineTextAlignment(.center)
+
+        LottieSwiftUIView(name: "coffee")
+          .frame(width: 100, height: 100)
+          .padding(.horizontal, -30)
+          .padding(.vertical, -20)
+      }
 
       cardView(image: Image(.starIllu), color: AppColor.accentMint)
         .rotationEffect(.degrees(-10))
@@ -57,20 +64,24 @@ struct DonationCards: View {
       }
     }
     .padding(.vertical, 20)
-    .background(AppColor.accentRed)
+    .background(AppColor.accentPink)
   }
 
   private func cardView(image: Image, color: Color) -> some View {
-    image
-      .resizable()
-      .scaledToFit()
-      .frame(width: 180, height: 260)
-      .clipShape(RoundedRectangle(cornerRadius: 20))
-      .background(
-        RoundedRectangle(cornerRadius: 20)
-          .fill(color)
-          .stroke(Color.black, lineWidth: 2)
+    Button {} label: {
+      image
+        .resizable()
+        .scaledToFit()
+        .frame(width: 180, height: 260)
+    }
+    .buttonStyle(
+      NeobrutalistButtonStyle(
+        cornerRadius: 20,
+        shadowOffset: 3,
+        borderColor: .black,
+        backgroundColor: color
       )
+    )
   }
 
   private func openDonationPage() {
