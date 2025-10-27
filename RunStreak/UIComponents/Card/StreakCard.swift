@@ -13,6 +13,8 @@ struct StreakCard: View {
   var body: some View {
     Button {} label: {
       VStack(spacing: 20) {
+//        BrutalistBadge(text: "NEW RECORD", color: .yellow)
+
         Image(.starPink)
           .resizable()
           .scaledToFit()

@@ -64,7 +64,9 @@ struct DonationCards: View {
       }
     }
     .padding(.vertical, 20)
+    .padding(.bottom, 1_000)
     .background(AppColor.accentPink)
+    .padding(.bottom, -1_010)
   }
 
   private func cardView(image: Image, color: Color) -> some View {

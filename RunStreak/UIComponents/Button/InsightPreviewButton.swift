@@ -8,12 +8,31 @@
 import SwiftUI
 
 struct InsightPreviewButton: View {
-  let title: String
-  let value: String
-  let icon: String
-  let color: Color
-  let hasTrailingArrow: Bool
-  let onClick: () -> Void
+  private let title: String
+  private let subtitle: String?
+  private let value: String
+  private let icon: String
+  private let color: Color
+  private let hasTrailingArrow: Bool
+  private let onClick: () -> Void
+
+  init(
+    title: String,
+    subtitle: String? = nil,
+    value: String,
+    icon: String,
+    color: Color,
+    hasTrailingArrow: Bool,
+    onClick: @escaping () -> Void
+  ) {
+    self.title = title
+    self.subtitle = subtitle
+    self.value = value
+    self.icon = icon
+    self.color = color
+    self.hasTrailingArrow = hasTrailingArrow
+    self.onClick = onClick
+  }
 
   var body: some View {
     Button {
@@ -34,18 +53,23 @@ struct InsightPreviewButton: View {
         Text(title.uppercased())
           .font(.system(size: 13, weight: .bold))
           .foregroundColor(.black.opacity(0.8))
-          .lineLimit(1)
+          .multilineTextAlignment(hasTrailingArrow ? .leading : .center)
 
         Text(value)
           .font(.system(size: 18, weight: .heavy, design: .rounded))
           .foregroundColor(.black)
-          .lineLimit(1)
+          .multilineTextAlignment(hasTrailingArrow ? .leading : .center)
+
+        if let subtitle = subtitle {
+          Text(subtitle)
+            .foregroundStyle(.secondary)
+        }
       }
       .padding()
       .apply {
         if hasTrailingArrow {
           $0
-            .frame(width: 150, height: 120, alignment: .leading)
+            .frame(width: 150, alignment: .leading)
             .overlay(alignment: .trailing) {
               Image(systemName: "chevron.right")
                 .foregroundStyle(.black)

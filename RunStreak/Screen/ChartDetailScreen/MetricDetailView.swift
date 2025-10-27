@@ -55,7 +55,7 @@ struct MetricDetailView<M: ChartMetric>: View {
   }
 
   private var insights: some View {
-    HStack(spacing: 16) {
+    EqualHeightHStack {
       if let best = viewModel.bestSample {
         InsightPreviewButton(
           title: "Best Day",
