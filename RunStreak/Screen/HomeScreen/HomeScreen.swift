@@ -91,18 +91,8 @@ struct HomeScreen: View {
 
   @ViewBuilder
   private var todayRunBadge: some View {
-    if viewModel.todayDistanceKm > 0 {
-      HStack {
-        Text("Today’s Run Complete ✅")
-          .font(.system(size: 18, weight: .bold, design: .rounded))
-        Spacer()
-        Text("\(String(format: "%.1f km", viewModel.todayDistanceKm))")
-          .font(.system(size: 18, weight: .bold, design: .rounded))
-      }
-      .padding()
-      .background(AppColor.accentMint)
-      .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.black, lineWidth: 2))
-      .cornerRadius(20)
+    if viewModel.hasCompletedTodayRun {
+      TodayRunCard(distanceString: viewModel.todayDistanceString)
     }
   }
 

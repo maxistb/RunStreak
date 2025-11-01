@@ -45,15 +45,21 @@ final class HomeScreenVM {
     return streak
   }
 
-  var todayDistanceKm: Double {
+  var todayDistanceString: String {
     let meters = runs
       .filter { Calendar.current.isDateInToday($0.date) }
       .reduce(0.0) { $0 + $1.distanceInMeters }
-    return meters / 1000.0
+    return (meters / 1000.0).toLocaleDistanceString()
+  }
+
+  var hasCompletedTodayRun: Bool {
+    runs
+      .filter { Calendar.current.isDateInToday($0.date) }
+      .reduce(0.0) { $0 + $1.distanceInMeters } > 0
   }
 
   func totalDistanceLast7Days(locale: Locale) -> String {
-    12.54.toLocaleDistanceString()
+    metricAverage(days: 7) { $0.distanceInMeters / 1000 }.toLocaleDistanceString()
   }
 
   var avgHeartRateLast7Days: Double {

@@ -87,7 +87,7 @@ struct DonationCards: View {
   }
 
   private func openDonationPage() {
-    if let url = URL(string: "https://www.buymeacoffee.com/yourname") {
+    if let url = URL(string: "https://buymeacoffee.com/runningstreak") {
       UIApplication.shared.open(url)
     }
   }

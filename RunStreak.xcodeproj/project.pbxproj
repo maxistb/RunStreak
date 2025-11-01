@@ -360,7 +360,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RunStreak/Configuration/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = RunStreak;
+				INFOPLIST_KEY_CFBundleDisplayName = "Running Streak";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We need to have Access in order to calculate the Streak.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need to have Access in order to calculate the Streak.";
@@ -399,7 +399,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RunStreak/Configuration/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = RunStreak;
+				INFOPLIST_KEY_CFBundleDisplayName = "Running Streak";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We need to have Access in order to calculate the Streak.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need to have Access in order to calculate the Streak.";

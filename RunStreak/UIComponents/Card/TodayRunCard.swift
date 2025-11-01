@@ -8,22 +8,26 @@
 import SwiftUI
 
 struct TodayRunCard: View {
-  let distanceKm: Double
+  let distanceString: String
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 12) {
-      Text("Today's Run Complete ✅")
-        .font(.system(size: 18, weight: .semibold, design: .rounded))
-        .foregroundColor(AppColor.textPrimary)
-
-      Text("+\(String(format: "%.1f", distanceKm)) km added to your streak")
-        .font(.system(size: 15, weight: .medium))
-        .foregroundColor(AppColor.textSecondary)
+    Button {} label: {
+      HStack {
+        Text("Today’s Run Complete ✅")
+          .font(.system(size: 18, weight: .bold, design: .rounded))
+        Spacer()
+        Text(distanceString)
+          .font(.system(size: 18, weight: .bold, design: .rounded))
+      }
+      .padding()
     }
-    .padding()
-    .frame(maxWidth: .infinity, alignment: .leading)
-    .background(AppColor.accentMint)
-    .cornerRadius(20)
-    .shadow(color: AppColor.accentMint.opacity(0.5), radius: 10, y: 4)
+    .buttonStyle(
+      NeobrutalistButtonStyle(
+        cornerRadius: 20,
+        shadowOffset: 4,
+        borderColor: .black,
+        backgroundColor: AppColor.accentMint
+      )
+    )
   }
 }

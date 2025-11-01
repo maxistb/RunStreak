@@ -13,6 +13,7 @@ import WidgetKit
 final class HealthKitManager {
   static let shared = HealthKitManager()
   private let healthStore = HKHealthStore()
+  private var isMockEnabled: Bool = false
 
   private init() {}
 
@@ -84,6 +85,14 @@ final class HealthKitManager {
   }
 
   func fetchRunningWorkouts() async throws -> [RunDay] {
+    #if targetEnvironment(simulator)
+    return try await mockFetchRunningWorkouts()
+    #endif
+
+    return try await fetchHealthKitWorkouts()
+  }
+
+  func fetchHealthKitWorkouts() async throws -> [RunDay] {
     let predicate = HKQuery.predicateForSamples(
       withStart: nil,
       end: nil,
@@ -222,5 +231,51 @@ extension HealthKitManager {
     } catch {
       print("Background fetch failed:", error)
     }
+  }
+}
+
+// MARK: - Mock Mode for Simulator
+
+extension HealthKitManager {
+  /// Returns simulated running workouts for previews or simulator use
+  func mockFetchRunningWorkouts() async throws -> [RunDay] {
+    print("🧪 Running in simulator — returning mock running data")
+
+    let now = Date()
+    let calendar = Calendar.current
+
+    // 10 consecutive days of mock runs
+    let mockRuns: [RunDay] = (0..<31).map { i in
+      let randomDistance = Double.random(in: 4.5...8.0) * 1000 // meters
+      let randomDuration = randomDistance / Double.random(in: 2.5...3.0) * 60 // seconds
+      let randomHR = Double.random(in: 135...165)
+      let vo2Base = 52.0 - (Double(i) * Double.random(in: 0...0.4)) // gradual increase to simulate improvement
+      let vo2Max = min(vo2Base, 62.9)
+
+      return RunDay(
+        uuid: UUID(),
+        date: calendar.date(byAdding: .day, value: -i, to: now)!,
+        distanceInMeters: randomDistance,
+        durationInSeconds: randomDuration,
+        calories: Double.random(in: 250...600),
+        source: "Mock Run",
+        avgHeartRate: randomHR,
+        vo2Max: vo2Max
+      )
+    }
+
+    return mockRuns.sorted(by: { $0.date < $1.date })
+  }
+
+  func mockFetchVo2MaxSamples() async throws -> [Date: Double] {
+    let calendar = Calendar.current
+    let now = Date()
+
+    var mockSamples: [Date: Double] = [:]
+    for i in 0..<10 {
+      let date = calendar.date(byAdding: .day, value: -i, to: now)!
+      mockSamples[calendar.startOfDay(for: date)] = Double.random(in: 45...63)
+    }
+    return mockSamples
   }
 }
