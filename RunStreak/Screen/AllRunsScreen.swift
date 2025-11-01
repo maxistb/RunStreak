@@ -21,23 +21,22 @@ private struct YearMonth: Hashable, Comparable {
 
 struct AllRunsScreen: View {
   let runs: [RunDay]
+  let distanceUnit: MetricUnit = .km
 
   private var groupedRuns: [(key: YearMonth, monthName: String, runs: [RunDay])] {
     let calendar = Calendar.current
 
-    // Group runs by start of month
     let grouped = Dictionary(grouping: runs) { run -> YearMonth in
       let comps = calendar.dateComponents([.year, .month], from: run.date)
       return YearMonth(year: comps.year ?? 0, month: comps.month ?? 0)
     }
 
-    return grouped
-      .map { key, value in
-        let monthIndex = max(0, min(key.month - 1, calendar.monthSymbols.count - 1))
-        let monthName = calendar.monthSymbols[monthIndex]
-        return (key, monthName, value.sorted(by: { $0.date > $1.date }))
-      }
-      .sorted(by: { $0.key > $1.key }) // Sort by year → month descending
+    return grouped.map { key, value in
+      let monthIndex = max(0, min(key.month - 1, calendar.monthSymbols.count - 1))
+      let monthName = calendar.monthSymbols[monthIndex]
+      return (key, monthName, value.sorted(by: { $0.date > $1.date }))
+    }
+    .sorted(by: { $0.key > $1.key })
   }
 
   var body: some View {
@@ -45,7 +44,7 @@ struct AllRunsScreen: View {
       ForEach(groupedRuns, id: \.key) { group in
         Section(header: sectionHeader(for: group)) {
           ForEach(group.runs.sorted(by: { $0.date > $1.date }), id: \.uuid) { run in
-            RunRow(run: run)
+            RunRow(run: run, distanceUnit: distanceUnit)
               .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
               .listRowSeparator(.hidden)
               .listRowBackground(Color.clear)
@@ -62,23 +61,40 @@ struct AllRunsScreen: View {
 
   private func sectionHeader(for group: (key: YearMonth, monthName: String, runs: [RunDay])) -> some View {
     HStack {
-      // ✅ Ensure the year always renders as a plain integer, no locale formatting
-      Text("\(group.monthName) \(String(group.key.year))")
-        .font(.system(size: 18, weight: .bold))
-        .foregroundColor(.black)
+      VStack(alignment: .leading, spacing: 2) {
+        Text(group.monthName.uppercased())
+          .font(.system(size: 16, weight: .heavy))
+          .foregroundColor(.black)
+
+        Text(String(group.key.year))
+          .font(.system(size: 14, weight: .medium))
+          .foregroundColor(.black.opacity(0.8))
+      }
 
       Spacer()
 
       Text("\(group.runs.count) run\(group.runs.count == 1 ? "" : "s")")
-        .font(.system(size: 14, weight: .medium))
-        .foregroundColor(.black.opacity(0.6))
+        .font(.system(size: 14, weight: .semibold))
+        .foregroundColor(.black)
+        .padding(.vertical, 6)
+        .padding(.horizontal, 12)
+        .background(AppColor.accentMint)
+        .overlay(RoundedRectangle(cornerRadius: 8).stroke(.black, lineWidth: 2))
+        .cornerRadius(8)
+        .shadow(color: .black, radius: 0, x: 3, y: 3)
     }
+    .padding(8)
+    .background(AppColor.accentPurple)
+    .overlay(RoundedRectangle(cornerRadius: 12).stroke(.black, lineWidth: 2))
+    .cornerRadius(12)
+    .shadow(color: .black, radius: 0, x: 4, y: 4)
     .padding(.vertical, 6)
   }
 }
 
 struct RunRow: View {
   let run: RunDay
+  let distanceUnit: MetricUnit
 
   var body: some View {
     HStack(spacing: 16) {
@@ -98,7 +114,7 @@ struct RunRow: View {
           .foregroundColor(.black)
 
         HStack(spacing: 12) {
-          Label("\(String(format: "%.1f km", run.distanceInMeters / 1000))", systemImage: "ruler")
+          Label("\(formattedDistance(run.distanceInMeters))", systemImage: "ruler")
           Label(formatDuration(run.durationInSeconds), systemImage: "clock")
           if let hr = run.avgHeartRate {
             Label("\(Int(hr)) bpm", systemImage: "heart.fill")
@@ -111,10 +127,15 @@ struct RunRow: View {
       Spacer()
     }
     .padding()
-    .background(AppColor.accentLilac)
+    .background(AppColor.accentMint)
     .overlay(RoundedRectangle(cornerRadius: 20).stroke(.black, lineWidth: 2))
     .cornerRadius(20)
     .shadow(color: .black, radius: 0, x: 4, y: 4)
+  }
+
+  private func formattedDistance(_ meters: Double) -> String {
+    let converted = distanceUnit.convertDistance(meters / 1000)
+    return String(format: "%.1f %@", converted, distanceUnit.unitSymbol)
   }
 
   private func formatDuration(_ seconds: Double) -> String {

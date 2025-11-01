@@ -52,8 +52,8 @@ final class HomeScreenVM {
     return meters / 1000.0
   }
 
-  var totalDistanceLast7Days: Double {
-    metricAverage(days: 7) { $0.distanceInMeters } / 1000
+  func totalDistanceLast7Days(locale: Locale) -> String {
+    12.54.toLocaleDistanceString()
   }
 
   var avgHeartRateLast7Days: Double {

@@ -20,6 +20,7 @@ final class MetricDetailViewModel<M: ChartMetric> {
     guard let daysBack = selectedRange.daysBack else {
       return downsampled(samples, limit: 150)
     }
+
     let cutoff = Calendar.current.date(byAdding: .day, value: -daysBack, to: .now)!
     let filtered = samples.filter { $0.date >= cutoff }
     return downsampled(filtered, limit: daysBack > 200 ? 150 : 60)

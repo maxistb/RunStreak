@@ -50,19 +50,21 @@ struct InsightPreviewButton: View {
               .stroke(Color.black, lineWidth: 2)
           )
 
-        Text(title.uppercased())
-          .font(.system(size: 13, weight: .bold))
-          .foregroundColor(.black.opacity(0.8))
-          .multilineTextAlignment(hasTrailingArrow ? .leading : .center)
+        VStack(alignment: hasTrailingArrow ? .leading : .center, spacing: 2) {
+          Text(title.uppercased())
+            .font(.system(size: 13, weight: .bold))
+            .foregroundColor(.black.opacity(0.8))
+            .multilineTextAlignment(hasTrailingArrow ? .leading : .center)
 
-        Text(value)
-          .font(.system(size: 18, weight: .heavy, design: .rounded))
-          .foregroundColor(.black)
-          .multilineTextAlignment(hasTrailingArrow ? .leading : .center)
+          Text(value)
+            .font(.system(size: 18, weight: .heavy, design: .rounded))
+            .foregroundColor(.black)
+            .multilineTextAlignment(hasTrailingArrow ? .leading : .center)
 
-        if let subtitle = subtitle {
-          Text(subtitle)
-            .foregroundStyle(.secondary)
+          if let subtitle = subtitle {
+            Text(subtitle)
+              .foregroundStyle(.secondary)
+          }
         }
       }
       .padding()

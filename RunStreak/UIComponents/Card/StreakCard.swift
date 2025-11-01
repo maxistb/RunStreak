@@ -8,12 +8,38 @@
 import SwiftUI
 
 struct StreakCard: View {
+  @AppStorage("highestStreak") private var highestStreak: Int = 0
   let streakCount: Int
+
+  private var isNewRecord: Bool {
+    streakCount >= highestStreak
+  }
+
+  private var motivationText: String {
+    switch streakCount {
+    case 0:
+      return "Let’s get back on track — every step counts 💪"
+    case 1:
+      return "Every streak starts with one run. Keep it going! 🏁"
+    case 2...6:
+      return "Great start! Keep the momentum rolling 🔥"
+    case 7...13:
+      return "A full week! You’re building strong habits 💥"
+    case 14...29:
+      return "Two weeks strong — you’re unstoppable 💪"
+    case 30...:
+      return "Legendary consistency. You’re built different 🌟"
+    default:
+      return "Keep moving forward!"
+    }
+  }
 
   var body: some View {
     Button {} label: {
       VStack(spacing: 20) {
-//        BrutalistBadge(text: "NEW RECORD", color: .yellow)
+        if isNewRecord {
+          BrutalistBadge(text: "NEW RECORD", color: .yellow)
+        }
 
         Image(.starPink)
           .resizable()
@@ -25,9 +51,11 @@ struct StreakCard: View {
             .font(.system(size: 28, weight: .heavy, design: .rounded))
             .foregroundColor(.black)
 
-          Text("You’re on a roll! Keep moving 🌟")
+          Text(motivationText)
             .font(.system(size: 15, weight: .medium))
             .foregroundColor(.black.opacity(0.7))
+            .padding(.horizontal, 30)
+            .multilineTextAlignment(.center)
         }
       }
       .frame(maxWidth: .infinity)
@@ -41,5 +69,10 @@ struct StreakCard: View {
         backgroundColor: AppColor.accentPurple
       )
     )
+    .onAppear {
+      if streakCount > highestStreak {
+        highestStreak = streakCount
+      }
+    }
   }
 }

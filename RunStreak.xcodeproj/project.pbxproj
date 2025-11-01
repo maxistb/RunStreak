@@ -46,6 +46,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		7A691FB02EB4B2620025DFDE /* Exceptions for "RunStreak" folder in "RunStreakWidgetExtensionExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Extensions/Color+Extension.swift",
+				Styleguide/AppColor.swift,
+			);
+			target = 7A9B8F6C2E9D6A4600B2A282 /* RunStreakWidgetExtensionExtension */;
+		};
 		7A9B8F832E9D6A4800B2A282 /* Exceptions for "RunStreakWidgetExtension" folder in "RunStreakWidgetExtensionExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -83,6 +91,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				7AB118D62E95075900CF8EE1 /* Exceptions for "RunStreak" folder in "RunStreak" target */,
+				7A691FB02EB4B2620025DFDE /* Exceptions for "RunStreak" folder in "RunStreakWidgetExtensionExtension" target */,
 			);
 			path = RunStreak;
 			sourceTree = "<group>";

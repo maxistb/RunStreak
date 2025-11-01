@@ -8,18 +8,46 @@
 import Charts
 import SwiftUI
 
+enum MetricUnit {
+  case km
+  case bpm
+  case vo2Max
+
+  func convertDistance(_ value: Double) -> Double {
+    switch self {
+      case .km:
+        Locale.current.measurementSystem == .metric ? value : value / 1.60934
+      case .bpm:
+        value
+      case .vo2Max:
+        value
+    }
+  }
+
+  var unitSymbol: String {
+    switch self {
+      case .km:
+        Locale.current.measurementSystem == .metric ? "km" : "mi"
+      case .bpm:
+        "bpm"
+      case .vo2Max:
+        "ml/kg/min"
+    }
+  }
+}
+
 struct MetricDetailView<M: ChartMetric>: View {
   @State private var viewModel: MetricDetailViewModel<M>
   @State private var selectedDate: Date? = nil
 
   let title: String
-  let unit: String
+  let unit: MetricUnit
   let accentColor: Color
   let footerText: String
+  let measurementSystem: Locale.MeasurementSystem
 
   private var selectedValue: (date: Date, value: Double)? {
     guard let selectedDate else { return nil }
-    // Find the closest sample by date
     return viewModel.filteredSamples
       .min(by: { abs($0.date.timeIntervalSince(selectedDate)) < abs($1.date.timeIntervalSince(selectedDate)) })
       .map { ($0.date, $0.value) }
@@ -27,16 +55,18 @@ struct MetricDetailView<M: ChartMetric>: View {
 
   init(
     title: String,
-    unit: String,
+    unit: MetricUnit,
     accentColor: Color,
     footerText: String,
-    samples: [M]
+    samples: [M],
+    measurementSystem: Locale.MeasurementSystem = Locale.current.measurementSystem
   ) {
     self._viewModel = State(initialValue: MetricDetailViewModel(samples: samples))
     self.title = title
     self.unit = unit
     self.accentColor = accentColor
     self.footerText = footerText
+    self.measurementSystem = measurementSystem
   }
 
   var body: some View {
@@ -54,12 +84,14 @@ struct MetricDetailView<M: ChartMetric>: View {
     .navigationBarTitleDisplayMode(.inline)
   }
 
+  // MARK: - Insights
+
   private var insights: some View {
     EqualHeightHStack {
       if let best = viewModel.bestSample {
         InsightPreviewButton(
           title: "Best Day",
-          value: String(format: "%.1f %@", best.value, unit),
+          value: formattedDistance(best.value),
           icon: "trophy.fill",
           color: AppColor.accentPeach,
           hasTrailingArrow: false
@@ -69,7 +101,7 @@ struct MetricDetailView<M: ChartMetric>: View {
       if let totalRunningDistance = viewModel.totalRunningDistance {
         InsightPreviewButton(
           title: "Total Distance",
-          value: String(format: "%.1f %@", totalRunningDistance, unit),
+          value: formattedDistance(totalRunningDistance),
           icon: "figure.run",
           color: AppColor.accentMint,
           hasTrailingArrow: false
@@ -78,7 +110,7 @@ struct MetricDetailView<M: ChartMetric>: View {
 
       InsightPreviewButton(
         title: "This Period",
-        value: String(format: "%.1f %@", viewModel.averageValue, unit),
+        value: formattedDistance(viewModel.averageValue),
         icon: "calendar",
         color: AppColor.accentPurple,
         hasTrailingArrow: false
@@ -86,6 +118,8 @@ struct MetricDetailView<M: ChartMetric>: View {
     }
     .padding(.vertical, 4)
   }
+
+  // MARK: - Chart Card
 
   private var chartCard: some View {
     VStack(spacing: 16) {
@@ -120,7 +154,7 @@ struct MetricDetailView<M: ChartMetric>: View {
       ForEach(viewModel.filteredSamples) { sample in
         AreaMark(
           x: .value("Date", sample.date),
-          y: .value(title, sample.value)
+          y: .value(title, convertedValue(sample.value))
         )
         .interpolationMethod(.catmullRom)
         .foregroundStyle(
@@ -133,7 +167,7 @@ struct MetricDetailView<M: ChartMetric>: View {
 
         LineMark(
           x: .value("Date", sample.date),
-          y: .value(title, sample.value)
+          y: .value(title, convertedValue(sample.value))
         )
         .interpolationMethod(.catmullRom)
         .lineStyle(StrokeStyle(lineWidth: 2, lineCap: .round))
@@ -151,10 +185,8 @@ struct MetricDetailView<M: ChartMetric>: View {
     }
     .chartXSelection(value: $selectedDate)
     .chartYScale(domain: 0 ... (viewModel.filteredSamples.map(\.value).max() ?? 1))
-    .chartXScale(domain:
-      viewModel.filteredSamples.map { $0.date }.min()! ... viewModel.filteredSamples.map { $0.date }.max()!
+    .chartXScale(domain: (viewModel.filteredSamples.map { $0.date }.min() ?? .now) ... (viewModel.filteredSamples.map { $0.date }.max() ?? .now)
     )
-
     .frame(height: 240)
   }
 
@@ -167,7 +199,7 @@ struct MetricDetailView<M: ChartMetric>: View {
             .font(.system(size: 13, weight: .medium))
             .foregroundColor(.black)
 
-          Text("\(String(format: "%.1f", value.value)) \(unit)")
+          Text(formattedDistance(value.value))
             .font(.system(size: 17, weight: .bold, design: .rounded))
             .foregroundColor(.black)
         }
@@ -191,5 +223,13 @@ struct MetricDetailView<M: ChartMetric>: View {
       .foregroundColor(.black.opacity(0.8))
       .padding(.horizontal)
       .padding(.bottom, 40)
+  }
+
+  private func convertedValue(_ km: Double) -> Double {
+    unit.convertDistance(km)
+  }
+
+  private func formattedDistance(_ km: Double) -> String {
+    return String(format: "%.1f %@", unit.convertDistance(km), unit.unitSymbol)
   }
 }
