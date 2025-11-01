@@ -144,23 +144,23 @@ final class HealthKitManager {
 
   func startWorkoutObserver() {
     let type = HKObjectType.workoutType()
-    let query = HKObserverQuery(sampleType: type, predicate: nil) { _, _, error in
-      if let error = error {
-        print("Observer error:", error)
-        return
-      }
+    let query = HKObserverQuery(sampleType: type, predicate: nil) { _, _, _ in
       Task {
-        // Refetch workouts and update widget data
         let runs = try? await self.fetchRunningWorkouts()
         let streak = await self.calculateStreak(from: runs ?? [])
-        await self.saveStreakToAppGroup(streak: streak)
-        WidgetCenter.shared.reloadAllTimelines()
+        let calendar = Calendar.current
+        let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: .now))!
+
+        let thisWeekRuns = runs?.filter { $0.date >= startOfWeek } ?? []
+
+        let totalDistanceKm = thisWeekRuns.reduce(0) { $0 + $1.distanceInMeters } / 1000
+        let maxVo2Max = thisWeekRuns.compactMap(\.vo2Max).max() ?? 0
+
+        await self.saveWidgetData(streak: streak, distance: totalDistanceKm, vo2Max: maxVo2Max)
       }
     }
     healthStore.execute(query)
-    healthStore.enableBackgroundDelivery(for: type, frequency: .immediate) { success, error in
-      print("Background delivery:", success, error?.localizedDescription ?? "")
-    }
+    healthStore.enableBackgroundDelivery(for: type, frequency: .immediate, withCompletion: { _, _ in })
   }
 
   private func calculateStreak(from runs: [RunDay]) -> Int {
@@ -183,17 +183,44 @@ final class HealthKitManager {
 private let appGroupID = "group.com.runstreak.app"
 
 extension HealthKitManager {
-  func saveStreakToAppGroup(streak: Int) {
-    let data = RunStreakWidgetData(streakCount: streak, lastUpdated: Date())
-    if let encoded = try? JSONEncoder().encode(data) {
-      let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupID)!.appendingPathComponent("streak.json")
-      try? encoded.write(to: url)
+  func saveWidgetData(streak: Int, distance: Double, vo2Max: Double) async {
+    let widgetData = RunStreakWidgetData(
+      lastUpdated: .now,
+      streakCount: streak,
+      totalDistance: distance,
+      averageVo2Max: vo2Max
+    )
+    let url = FileManager.default
+      .containerURL(forSecurityApplicationGroupIdentifier: "group.com.runstreak.app")!
+      .appendingPathComponent("streak.json")
+    if let data = try? JSONEncoder().encode(widgetData) {
+      try? data.write(to: url)
     }
+    WidgetCenter.shared.reloadAllTimelines()
   }
 
-  func readStreakFromAppGroup() -> RunStreakWidgetData? {
-    let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupID)!.appendingPathComponent("streak.json")
-    guard let data = try? Data(contentsOf: url) else { return nil }
-    return try? JSONDecoder().decode(RunStreakWidgetData.self, from: data)
+  func refreshAndSaveWidgetData() async {
+    do {
+      let runs = try await fetchRunningWorkouts()
+      let streak = calculateStreak(from: runs)
+
+      let calendar = Calendar.current
+      let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: .now))!
+
+      let thisWeekRuns = runs.filter { $0.date >= startOfWeek }
+
+      let totalDistanceKm = thisWeekRuns.reduce(0) { $0 + $1.distanceInMeters } / 1000
+      let maxVo2Max = thisWeekRuns.compactMap(\.vo2Max).max() ?? 0
+
+      await saveWidgetData(
+        streak: streak,
+        distance: totalDistanceKm,
+        vo2Max: maxVo2Max
+      )
+
+      WidgetCenter.shared.reloadAllTimelines()
+    } catch {
+      print("Background fetch failed:", error)
+    }
   }
 }

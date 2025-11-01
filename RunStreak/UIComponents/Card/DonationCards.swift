@@ -36,7 +36,7 @@ struct DonationCards: View {
         .padding(.top, 20)
 
       VStack(spacing: 10) {
-        Text("This app is 100% free and open source. If you enjoy using RunStreak and want to help keep it ad-free and growing, consider buying me a coffee ☕️ — it means the world!")
+        Text("This app is 100% free. If you enjoy using RunStreak and want to help keep it ad-free and growing, consider buying me a coffee ☕️ — it means the world!")
           .font(.system(size: 15, weight: .medium))
           .foregroundColor(.black.opacity(0.75))
           .multilineTextAlignment(.center)

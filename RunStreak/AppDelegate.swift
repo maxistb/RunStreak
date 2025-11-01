@@ -1,10 +1,19 @@
+//
+//  AppDelegate.swift
+//  RunStreak
+//
+//  Created by Maximillian Stabe on 01.11.25.
+//
+
 import BackgroundTasks
+import UIKit
 import WidgetKit
 
-@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+  func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
     registerBackgroundTasks()
     HealthKitManager.shared.startWorkoutObserver()
     return true
@@ -17,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
   private func handleBackgroundRefresh(task: BGProcessingTask) {
-    scheduleNextBackgroundRefresh() // always reschedule
+    scheduleNextBackgroundRefresh()
 
     Task {
       await HealthKitManager.shared.refreshAndSaveWidgetData()
@@ -30,7 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let request = BGProcessingTaskRequest(identifier: "com.runstreak.refresh")
     request.requiresNetworkConnectivity = false
     request.requiresExternalPower = false
-    request.earliestBeginDate = Date(timeIntervalSinceNow: 15 * 60) // every 15 minutes
+    request.earliestBeginDate = Date(timeIntervalSinceNow: 15 * 60)
+
     do {
       try BGTaskScheduler.shared.submit(request)
     } catch {

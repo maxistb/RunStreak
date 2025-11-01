@@ -294,6 +294,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RunStreakWidgetExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RunStreakWidgetExtension;
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We need to have Access in order to calculate the Streak.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "We need to have Access in order to calculate the Streak.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -325,6 +327,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RunStreakWidgetExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RunStreakWidgetExtension;
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We need to have Access in order to calculate the Streak.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "We need to have Access in order to calculate the Streak.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -358,8 +362,8 @@
 				INFOPLIST_FILE = RunStreak/Configuration/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RunStreak;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We need to have Access.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need to have Access.";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We need to have Access in order to calculate the Streak.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need to have Access in order to calculate the Streak.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -397,8 +401,8 @@
 				INFOPLIST_FILE = RunStreak/Configuration/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RunStreak;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We need to have Access.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need to have Access.";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We need to have Access in order to calculate the Streak.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need to have Access in order to calculate the Streak.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
