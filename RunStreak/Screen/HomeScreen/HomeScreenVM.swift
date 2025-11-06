@@ -1,8 +1,5 @@
 //
-//  HomeViewModel.swift
-//  RunStreak
-//
-//  Created by Maximillian Stabe on 27.10.25.
+// Copyright © 2025 Maximillian Stabe. All rights reserved.
 //
 
 import Foundation

@@ -1,14 +1,11 @@
 //
-//  HomeView.swift
-//  RunStreak
-//
-//  Created by Maximillian Stabe on 07.10.25.
+// Copyright © 2025 Maximillian Stabe. All rights reserved.
 //
 
+import Styleguide
 import SwiftData
 import SwiftUI
-
-import SwiftUI
+import UIComponents
 
 struct HomeScreen: View {
   enum Destination: Hashable {
@@ -22,19 +19,19 @@ struct HomeScreen: View {
   var body: some View {
     NavigationStack {
       ScrollView(showsIndicators: false) {
-        VStack(alignment: .leading, spacing: 24) {
+        VStack(alignment: .leading, spacing: Spacing.m) {
           header
           statisticBadges
-            .padding(.horizontal, -16)
+            .padding(.horizontal, -Spacing.s)
 
           StreakCard(streakCount: viewModel.streakCount)
           todayRunBadge
           allRunButton
           DonationCards()
-            .padding(.horizontal, -16)
+            .padding(.horizontal, -Spacing.s)
         }
-        .padding(.top, 24)
-        .padding(.horizontal, 16)
+        .padding(.top, Spacing.m)
+        .padding(.horizontal, Spacing.s)
       }
       .background(AppColor.background.ignoresSafeArea())
       .navigationDestination(item: $destination) { destinationView(for: $0) }
@@ -46,11 +43,12 @@ struct HomeScreen: View {
   }
 
   private var header: some View {
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: Spacing.xxs) {
       Text("\(Date().formatted(date: .long, time: .omitted)) 👋")
         .font(.system(size: 26, weight: .bold, design: .rounded))
+        .typography(.title)
       Text("Keep the streak alive and run happy!")
-        .font(.system(size: 16, weight: .medium, design: .rounded))
+        .typography(.subheadline)
         .foregroundColor(AppColor.textSecondary)
     }
   }
@@ -85,7 +83,9 @@ struct HomeScreen: View {
           hasTrailingArrow: true
         ) { destination = .vo2Max }
       }
-      .padding(.horizontal, 16)
+      .padding(.horizontal, Spacing.s)
+      .padding(.top, Spacing.xxxs)
+      .padding(.bottom, Spacing.xxs)
     }
   }
 
@@ -97,21 +97,14 @@ struct HomeScreen: View {
   }
 
   private var allRunButton: some View {
-    Button { destination = .allRuns } label: {
-      Text("View All Runs")
-        .font(.system(size: 17, weight: .bold, design: .rounded))
-        .foregroundColor(.black)
-        .frame(maxWidth: .infinity)
-        .padding()
-    }
-    .buttonStyle(
-      NeobrutalistButtonStyle(
-        cornerRadius: 20,
-        shadowOffset: 4,
-        borderColor: .black,
-        backgroundColor: AppColor.accentLilac
-      )
-    )
+    Text("View All Runs")
+      .typography(.body)
+      .foregroundColor(.black)
+      .frame(maxWidth: .infinity)
+      .padding()
+      .neobrutalismStyle(backgroundColor: AppColor.accentLilac) {
+        destination = .allRuns
+      }
   }
 
   @ViewBuilder

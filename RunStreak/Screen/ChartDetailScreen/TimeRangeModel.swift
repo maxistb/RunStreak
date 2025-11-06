@@ -1,8 +1,5 @@
 //
-//  TimeRange.swift
-//  RunStreak
-//
-//  Created by Maximillian Stabe on 27.10.25.
+// Copyright © 2025 Maximillian Stabe. All rights reserved.
 //
 
 enum TimeRange: CaseIterable, Equatable {

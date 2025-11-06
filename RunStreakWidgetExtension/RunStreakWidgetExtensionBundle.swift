@@ -1,8 +1,5 @@
 //
-//  RunStreakWidgetExtensionBundle.swift
-//  RunStreakWidgetExtension
-//
-//  Created by Maximillian Stabe on 13.10.25.
+// Copyright © 2025 Maximillian Stabe. All rights reserved.
 //
 
 import SwiftUI

@@ -1,8 +1,5 @@
 //
-//  LottieSwiftUIView.swift
-//  RunStreak
-//
-//  Created by Maximillian Stabe on 26.10.25.
+// Copyright © 2025 Maximillian Stabe. All rights reserved.
 //
 
 import DotLottie

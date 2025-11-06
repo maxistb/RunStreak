@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		7A2701E92EAE18A900BC72AC /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 7A2701E82EAE18A900BC72AC /* DotLottie */; };
+		7A63BA142EBB431C009D6915 /* Styleguide in Frameworks */ = {isa = PBXBuildFile; productRef = 7A63BA132EBB431C009D6915 /* Styleguide */; };
+		7A63BA162EBB431F009D6915 /* UIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 7A63BA152EBB431F009D6915 /* UIComponents */; };
+		7A63BA182EBB4323009D6915 /* Styleguide in Frameworks */ = {isa = PBXBuildFile; productRef = 7A63BA172EBB4323009D6915 /* Styleguide */; };
 		7A9B8F702E9D6A4600B2A282 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9B8F6F2E9D6A4600B2A282 /* WidgetKit.framework */; };
 		7A9B8F722E9D6A4600B2A282 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9B8F712E9D6A4600B2A282 /* SwiftUI.framework */; };
 		7A9B8F7F2E9D6A4800B2A282 /* RunStreakWidgetExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7A9B8F6D2E9D6A4600B2A282 /* RunStreakWidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -42,6 +45,8 @@
 		7A9B8F6F2E9D6A4600B2A282 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		7A9B8F712E9D6A4600B2A282 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		7A9B8F892E9D6C5C00B2A282 /* RunStreakWidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunStreakWidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
+		7AAD1AA02EB722B500E25B9D /* UIComponents */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UIComponents; sourceTree = "<group>"; };
+		7AAD1AA12EB722F000E25B9D /* Styleguide */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Styleguide; sourceTree = "<group>"; };
 		7AB118C92E95075800CF8EE1 /* RunStreak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunStreak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -50,7 +55,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"Extensions/Color+Extension.swift",
-				Styleguide/AppColor.swift,
 			);
 			target = 7A9B8F6C2E9D6A4600B2A282 /* RunStreakWidgetExtensionExtension */;
 		};
@@ -104,6 +108,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A9B8F722E9D6A4600B2A282 /* SwiftUI.framework in Frameworks */,
+				7A63BA182EBB4323009D6915 /* Styleguide in Frameworks */,
 				7A9B8F702E9D6A4600B2A282 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,7 +117,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A63BA162EBB431F009D6915 /* UIComponents in Frameworks */,
 				7A2701E92EAE18A900BC72AC /* DotLottie in Frameworks */,
+				7A63BA142EBB431C009D6915 /* Styleguide in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +138,8 @@
 		7AB118C02E95075800CF8EE1 = {
 			isa = PBXGroup;
 			children = (
+				7AAD1AA12EB722F000E25B9D /* Styleguide */,
+				7AAD1AA02EB722B500E25B9D /* UIComponents */,
 				7A9B8F892E9D6C5C00B2A282 /* RunStreakWidgetExtensionExtension.entitlements */,
 				7AB118CB2E95075800CF8EE1 /* RunStreak */,
 				7A9B8F732E9D6A4600B2A282 /* RunStreakWidgetExtension */,
@@ -168,6 +177,7 @@
 			);
 			name = RunStreakWidgetExtensionExtension;
 			packageProductDependencies = (
+				7A63BA172EBB4323009D6915 /* Styleguide */,
 			);
 			productName = RunStreakWidgetExtensionExtension;
 			productReference = 7A9B8F6D2E9D6A4600B2A282 /* RunStreakWidgetExtensionExtension.appex */;
@@ -193,6 +203,8 @@
 			name = RunStreak;
 			packageProductDependencies = (
 				7A2701E82EAE18A900BC72AC /* DotLottie */,
+				7A63BA132EBB431C009D6915 /* Styleguide */,
+				7A63BA152EBB431F009D6915 /* UIComponents */,
 			);
 			productName = RunStreak;
 			productReference = 7AB118C92E95075800CF8EE1 /* RunStreak.app */;
@@ -617,6 +629,18 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7AB035D82EAE17CA00D4B3E6 /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
 			productName = DotLottie;
+		};
+		7A63BA132EBB431C009D6915 /* Styleguide */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Styleguide;
+		};
+		7A63BA152EBB431F009D6915 /* UIComponents */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UIComponents;
+		};
+		7A63BA172EBB4323009D6915 /* Styleguide */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Styleguide;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

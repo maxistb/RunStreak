@@ -1,12 +1,9 @@
 //
-//  RunStreakApp.swift
-//  RunStreak
-//
-//  Created by Maximillian Stabe on 07.10.25.
+// Copyright © 2025 Maximillian Stabe. All rights reserved.
 //
 
-import SwiftUI
 import BackgroundTasks
+import SwiftUI
 
 @main
 struct RunStreakApp: App {

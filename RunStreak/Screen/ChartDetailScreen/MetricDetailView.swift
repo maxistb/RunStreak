@@ -1,12 +1,11 @@
 //
-//  MetricDetailView.swift
-//  RunStreak
-//
-//  Created by Maximillian Stabe on 27.10.25.
+// Copyright © 2025 Maximillian Stabe. All rights reserved.
 //
 
 import Charts
+import Styleguide
 import SwiftUI
+import UIComponents
 
 enum MetricUnit {
   case km
@@ -71,13 +70,13 @@ struct MetricDetailView<M: ChartMetric>: View {
 
   var body: some View {
     ScrollView {
-      VStack(spacing: 24) {
+      VStack(spacing: Spacing.m) {
         insights
         chartCard
         footer
       }
-      .padding(.vertical, 24)
-      .padding(.horizontal, 16)
+      .padding(.vertical, Spacing.m)
+      .padding(.horizontal, Spacing.s)
     }
     .background(accentColor.ignoresSafeArea())
     .navigationTitle(title)
@@ -116,13 +115,13 @@ struct MetricDetailView<M: ChartMetric>: View {
         hasTrailingArrow: false
       ) {}
     }
-    .padding(.vertical, 4)
+    .padding(.vertical, Spacing.xxxs)
   }
 
   // MARK: - Chart Card
 
   private var chartCard: some View {
-    VStack(spacing: 16) {
+    VStack(spacing: Spacing.s) {
       picker
       chart
     }
@@ -137,16 +136,9 @@ struct MetricDetailView<M: ChartMetric>: View {
         }
       }
       .pickerStyle(.segmented)
-      .padding(6)
+      .padding(Spacing.xxs)
     }
-    .buttonStyle(
-      NeobrutalistButtonStyle(
-        cornerRadius: 20,
-        shadowOffset: 4,
-        borderColor: .black,
-        backgroundColor: .white
-      )
-    )
+    .neobrutalismStyle(backgroundColor: .white)
   }
 
   private var chart: some View {
@@ -193,36 +185,27 @@ struct MetricDetailView<M: ChartMetric>: View {
   @ViewBuilder
   private var selectedValueView: some View {
     if let value = selectedValue {
-      Button {} label: {
-        VStack(alignment: .trailing, spacing: 6) {
-          Text("\(value.date.formatted(date: .abbreviated, time: .omitted))")
-            .font(.system(size: 13, weight: .medium))
-            .foregroundColor(.black)
+      VStack(alignment: .trailing, spacing: 6) {
+        Text("\(value.date.formatted(date: .abbreviated, time: .omitted))")
+          .typography(.caption)
+          .foregroundColor(.black)
 
-          Text(formattedDistance(value.value))
-            .font(.system(size: 17, weight: .bold, design: .rounded))
-            .foregroundColor(.black)
-        }
-        .padding(10)
+        Text(formattedDistance(value.value))
+          .typography(.body)
+          .foregroundColor(.black)
       }
-      .buttonStyle(
-        NeobrutalistButtonStyle(
-          cornerRadius: 20,
-          shadowOffset: 3,
-          borderColor: .black,
-          backgroundColor: .white
-        )
-      )
+      .padding(10)
+      .neobrutalismStyle(backgroundColor: .white)
     }
   }
 
   private var footer: some View {
     Text(footerText)
       .multilineTextAlignment(.center)
-      .font(.system(size: 15, weight: .medium))
+      .typography(.subheadline)
       .foregroundColor(.black.opacity(0.8))
       .padding(.horizontal)
-      .padding(.bottom, 40)
+      .padding(.bottom, Spacing.xl)
   }
 
   private func convertedValue(_ km: Double) -> Double {

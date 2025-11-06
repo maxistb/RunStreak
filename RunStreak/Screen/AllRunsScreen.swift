@@ -1,11 +1,10 @@
 //
-//  AllRunsScreen.swift
-//  RunStreak
-//
-//  Created by Maximillian Stabe on 07.10.25.
+// Copyright © 2025 Maximillian Stabe. All rights reserved.
 //
 
+import Styleguide
 import SwiftUI
+import UIComponents
 
 private struct YearMonth: Hashable, Comparable {
   let year: Int
@@ -63,78 +62,76 @@ struct AllRunsScreen: View {
     HStack {
       VStack(alignment: .leading, spacing: 2) {
         Text(group.monthName.uppercased())
-          .font(.system(size: 16, weight: .heavy))
+          .typography(.heading)
           .foregroundColor(.black)
 
         Text(String(group.key.year))
-          .font(.system(size: 14, weight: .medium))
+          .typography(.caption)
           .foregroundColor(.black.opacity(0.8))
       }
 
       Spacer()
 
       Text("\(group.runs.count) run\(group.runs.count == 1 ? "" : "s")")
-        .font(.system(size: 14, weight: .semibold))
+        .typography(.subheadline)
         .foregroundColor(.black)
-        .padding(.vertical, 6)
-        .padding(.horizontal, 12)
+        .padding(.vertical, Spacing.xxs)
+        .padding(.horizontal, Spacing.xs)
         .background(AppColor.accentMint)
         .overlay(RoundedRectangle(cornerRadius: 8).stroke(.black, lineWidth: 2))
-        .cornerRadius(8)
+        .cornerRadius(CornerRadius.s)
         .shadow(color: .black, radius: 0, x: 3, y: 3)
     }
-    .padding(8)
-    .background(AppColor.accentPurple)
-    .overlay(RoundedRectangle(cornerRadius: 12).stroke(.black, lineWidth: 2))
-    .cornerRadius(12)
-    .shadow(color: .black, radius: 0, x: 4, y: 4)
-    .padding(.vertical, 6)
+    .padding(Spacing.xxs)
+    .neobrutalismStyle(backgroundColor: AppColor.accentPurple)
   }
 }
 
-struct RunRow: View {
-  let run: RunDay
-  let distanceUnit: MetricUnit
+private struct RunRow: View {
+  private let run: RunDay
+  private let distanceUnit: MetricUnit
+
+  init(run: RunDay, distanceUnit: MetricUnit) {
+    self.run = run
+    self.distanceUnit = distanceUnit
+  }
 
   var body: some View {
-    HStack(spacing: 16) {
+    HStack(spacing: Spacing.s) {
       ZStack {
         Circle()
           .fill(AppColor.accentBlue)
           .frame(width: 48, height: 48)
           .overlay(Circle().stroke(.black, lineWidth: 2))
         Image(systemName: "figure.run")
-          .font(.system(size: 22, weight: .bold))
+          .typography(.heading)
           .foregroundColor(.black)
       }
 
       VStack(alignment: .leading, spacing: 4) {
         Text(run.date.formatted(date: .abbreviated, time: .shortened))
-          .font(.system(size: 15, weight: .semibold))
+          .typography(.subheadline)
           .foregroundColor(.black)
 
-        HStack(spacing: 12) {
+        HStack(spacing: Spacing.xs) {
           Label("\(formattedDistance(run.distanceInMeters))", systemImage: "ruler")
           Label(formatDuration(run.durationInSeconds), systemImage: "clock")
           if let hr = run.avgHeartRate {
             Label("\(Int(hr)) bpm", systemImage: "heart.fill")
           }
         }
-        .font(.system(size: 13, weight: .medium))
+        .typography(.caption)
         .foregroundColor(.black.opacity(0.8))
       }
 
       Spacer()
     }
     .padding()
-    .background(AppColor.accentMint)
-    .overlay(RoundedRectangle(cornerRadius: 20).stroke(.black, lineWidth: 2))
-    .cornerRadius(20)
-    .shadow(color: .black, radius: 0, x: 4, y: 4)
+    .neobrutalismStyle(backgroundColor: AppColor.accentMint)
   }
 
   private func formattedDistance(_ meters: Double) -> String {
-    let converted = distanceUnit.convertDistance(meters / 1000)
+    let converted = distanceUnit.convertDistance(meters / 1_000)
     return String(format: "%.1f %@", converted, distanceUnit.unitSymbol)
   }
 

@@ -1,13 +1,11 @@
 //
-//  InsightPreviewButton.swift
-//  RunStreak
-//
-//  Created by Maximillian Stabe on 25.10.25.
+// Copyright © 2025 Maximillian Stabe. All rights reserved.
 //
 
+import Styleguide
 import SwiftUI
 
-struct InsightPreviewButton: View {
+public struct InsightPreviewButton: View {
   private let title: String
   private let subtitle: String?
   private let value: String
@@ -16,7 +14,7 @@ struct InsightPreviewButton: View {
   private let hasTrailingArrow: Bool
   private let onClick: () -> Void
 
-  init(
+  public init(
     title: String,
     subtitle: String? = nil,
     value: String,
@@ -34,15 +32,15 @@ struct InsightPreviewButton: View {
     self.onClick = onClick
   }
 
-  var body: some View {
+  public var body: some View {
     Button {
       onClick()
     } label: {
-      VStack(alignment: hasTrailingArrow ? .leading : .center, spacing: 10) {
+      VStack(alignment: hasTrailingArrow ? .leading : .center, spacing: Spacing.xs) {
         Image(systemName: icon)
-          .font(.system(size: 20, weight: .bold))
+          .typography(.metricValue)
           .foregroundColor(.black)
-          .padding(10)
+          .padding(Spacing.xs)
           .background(AppColor.background)
           .clipShape(Circle())
           .overlay(
@@ -50,14 +48,14 @@ struct InsightPreviewButton: View {
               .stroke(Color.black, lineWidth: 2)
           )
 
-        VStack(alignment: hasTrailingArrow ? .leading : .center, spacing: 2) {
+        VStack(alignment: hasTrailingArrow ? .leading : .center, spacing: Spacing.xxxs) {
           Text(title.uppercased())
-            .font(.system(size: 13, weight: .bold))
+            .typography(.badge)
             .foregroundColor(.black.opacity(0.8))
             .multilineTextAlignment(hasTrailingArrow ? .leading : .center)
 
           Text(value)
-            .font(.system(size: 18, weight: .heavy, design: .rounded))
+            .typography(.metricValue)
             .foregroundColor(.black)
             .multilineTextAlignment(hasTrailingArrow ? .leading : .center)
 
@@ -83,44 +81,6 @@ struct InsightPreviewButton: View {
         }
       }
     }
-    .buttonStyle(
-      NeobrutalistButtonStyle(
-        cornerRadius: 20,
-        shadowOffset: 3,
-        borderColor: .black,
-        backgroundColor: color
-      )
-    )
-    .padding(.vertical, 4)
-  }
-}
-
-struct NeobrutalistButtonStyle: ButtonStyle {
-  var cornerRadius: CGFloat = 16
-  var shadowOffset: CGFloat = 5
-  var borderColor: Color = .black
-  var backgroundColor: Color = AppColor.background
-
-  func makeBody(configuration: Configuration) -> some View {
-    configuration.label
-      .background(
-        RoundedRectangle(cornerRadius: cornerRadius)
-          .fill(backgroundColor)
-          .shadow(
-            color: borderColor,
-            radius: 0,
-            x: configuration.isPressed ? 0 : shadowOffset,
-            y: configuration.isPressed ? 0 : shadowOffset
-          )
-      )
-      .overlay(
-        RoundedRectangle(cornerRadius: cornerRadius)
-          .stroke(borderColor, lineWidth: 2)
-      )
-      .offset(
-        x: configuration.isPressed ? shadowOffset : 0,
-        y: configuration.isPressed ? shadowOffset : 0
-      )
-      .animation(.easeOut(duration: 0.1), value: configuration.isPressed)
+    .buttonStyle(NeobrutalistButtonStyle(backgroundColor: color))
   }
 }
