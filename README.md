@@ -1,10 +1,15 @@
 # 🏃‍♂️ RunStreak — Build Endurance Through Consistency
 
-RunStreak is a beautifully designed SwiftUI app in the Neobrutalism Style.It helps runners visualize their progress, track VO₂max, distance, heart rate, and maintain running streaks — all powered by **HealthKit**.
+RunStreak is a beautifully designed SwiftUI app in the **Neobrutalism style**.  
+It helps runners visualize their progress, track VO₂max, distance, heart rate, and maintain running streaks — all powered by **HealthKit**.
 
-![App Screenshot](Docs/preview.png)
+<div align="center" style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+  <img src="https://github.com/user-attachments/assets/d3d905ae-e816-4030-8416-a0030e2bcf45" alt="RunStreak Screenshot 1" width="250" />
+  <img src="https://github.com/user-attachments/assets/fd536091-e489-4cc1-9e6d-2c4a097178e1" alt="RunStreak Screenshot 2" width="250" />
+  <img src="https://github.com/user-attachments/assets/a5b5fa91-2cec-4792-83ff-ed7d931461b9" alt="RunStreak Screenshot 3" width="250" />
+</div>
 
----
+ ---
 
 ## ✨ Features
 
