@@ -27,7 +27,7 @@ public struct LottieSwiftUIView: UIViewRepresentable {
   }
 
   public func makeUIView(context: Context) -> DotLottieAnimationView {
-    let view = DotLottieAnimationView(dotLottieViewModel: .init(fileName: name, bundle: .main, config: .init(autoplay: true, loop: loop)))
+    let view = DotLottieAnimationView(dotLottieViewModel: .init(fileName: name, bundle: .module, config: .init(autoplay: true, loop: loop)))
     let observer = DotLottieObserver(onEnded: onEnded, onStart: onStart, onPauseAction: onPause)
     view.subscribe(observer: observer)
 

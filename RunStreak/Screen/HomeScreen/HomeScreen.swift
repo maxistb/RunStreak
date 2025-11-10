@@ -98,7 +98,7 @@ struct HomeScreen: View {
 
   private var allRunButton: some View {
     Text("View All Runs")
-      .typography(.body)
+      .typography(.metricValue)
       .foregroundColor(.black)
       .frame(maxWidth: .infinity)
       .padding()

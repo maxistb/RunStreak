@@ -170,7 +170,7 @@ struct MetricDetailView<M: ChartMetric>: View {
         RuleMark(x: .value("Selected", selectedValue.date))
           .foregroundStyle(.black)
           .lineStyle(StrokeStyle(lineWidth: 1, dash: [3]))
-          .annotation(position: .top, spacing: 8) {
+          .annotation(position: .top, spacing: Spacing.xxs) {
             selectedValueView
           }
       }
@@ -185,16 +185,16 @@ struct MetricDetailView<M: ChartMetric>: View {
   @ViewBuilder
   private var selectedValueView: some View {
     if let value = selectedValue {
-      VStack(alignment: .trailing, spacing: 6) {
+      VStack(alignment: .trailing, spacing: Spacing.xxxs) {
         Text("\(value.date.formatted(date: .abbreviated, time: .omitted))")
           .typography(.caption)
           .foregroundColor(.black)
 
         Text(formattedDistance(value.value))
-          .typography(.body)
+          .typography(.metricValue)
           .foregroundColor(.black)
       }
-      .padding(10)
+      .padding(Spacing.xs)
       .neobrutalismStyle(backgroundColor: .white)
     }
   }

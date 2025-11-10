@@ -15,12 +15,12 @@ public struct TodayRunCard: View {
   public var body: some View {
     HStack {
       Text("Today’s Run Complete ✅")
-        .typography(.body)
+        .typography(.metricValue)
 
       Spacer()
 
       Text(distanceString)
-        .typography(.body)
+        .typography(.metricValue)
     }
     .padding()
     .neobrutalismStyle(backgroundColor: AppColor.accentMint)
